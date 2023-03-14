@@ -1,0 +1,12 @@
+{
+   "compilerOptions": {
+      "target": "ES2022",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "esModuleInterop": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true
+   }
+}

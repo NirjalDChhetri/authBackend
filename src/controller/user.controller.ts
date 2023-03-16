@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { SignupDTO } from "../dtos/user.dot";
+import { ChangePasswordDTO, ForgetPasswordDTO } from "../dtos/login.dto";
+import { User } from "../entity/user.entity";
 import { UserService } from "../services/user.service";
-import { JwtUtil } from "../utils/jwt.util";
+import Message from '../customs/messages'
 
 class UserController {
   constructor(private userService = new UserService()) {}
@@ -35,7 +36,6 @@ class UserController {
   async Userlogin(req: Request, res: Response, next: NextFunction) {
     const data = req.body;
     const user = await this.userService.login(data);
-    console.log(user);
     res.status(200).json({
       status: true,
       data: {
@@ -44,6 +44,20 @@ class UserController {
       message: "Login successfully",
     });
     return user
+  }
+
+  async changePassword(req: Request, res: Response, next:NextFunction){
+    const data = req.body as ChangePasswordDTO
+    const user = req.user as User
+    await this.userService.changePassword(data, user)
+    res.status(200).json({
+      success: true,
+      message: Message['updatePassword']
+    })
+  }
+
+  forgetPassword(req: Request, res: Response, next: NextFunction){
+    const data = req.body as ForgetPasswordDTO
   }
 }
 

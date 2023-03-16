@@ -6,7 +6,7 @@ import "dotenv/config";
 import { AppDataSource } from "../config/database.config";
 import { User } from "../entity/user.entity";
 
-const authenticationMiddleware = async (
+ const authentication = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -33,9 +33,12 @@ const authenticationMiddleware = async (
     if (!user) {
       throw HttpException.badRequest(Message["unAuthorized"]);
     }
-    req.user = user as User;
+    req.user = user;
     next();
+    
   } catch (error) {
     next(error);
   }
 };
+
+export default authentication

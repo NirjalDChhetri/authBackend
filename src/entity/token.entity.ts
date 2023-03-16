@@ -1,4 +1,5 @@
 import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
+import { TokenStatus } from "../constants/enum";
 import { CommonField } from "./commonEntity";
 import { User } from "./user.entity";
 
@@ -15,6 +16,17 @@ class Token extends CommonField {
         type: 'text'
     })
     token: string
+
+    @Column({
+        type: 'enum',
+        enum: TokenStatus
+    })
+    status: TokenStatus
+
+    @Column({
+        type: 'datetime'
+    })
+    expiresAt: Date
 
 }
  export default Token

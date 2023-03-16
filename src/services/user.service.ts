@@ -1,6 +1,6 @@
 import { AppDataSource } from "../config/database.config";
 import Message from "../customs/messages";
-import { LoginDTO } from "../dtos/login.dto";
+import { ChangePasswordDTO, ForgetPasswordDTO, LoginDTO } from "../dtos/login.dto";
 import { SignupDTO } from "../dtos/user.dot";
 import { User } from "../entity/user.entity";
 import BcryptUtils from "../utils/bcrypt.util";
@@ -30,14 +30,12 @@ export class UserService {
   }
 
   async login(data: LoginDTO) {
-    console.log(data);
-
     const { email, password } = data;
     let user = await this.userRepository.findOne({
       where: {
         email,
       },
-      select:["email","password"]
+      select: ["email", "password"],
     });
     if (user != null) {
       const compare = await BcryptUtils.compare(password, user.password);
@@ -54,5 +52,45 @@ export class UserService {
     } else {
       throw HttpException.badRequest(Message["invalidAuth"]);
     }
+  }
+
+  async changePassword(data: ChangePasswordDTO, user: User) {
+    const { newPassword, oldPassword } = data;
+    console.log(user);
+
+    const findUser = await this.userRepository.findOne({
+      select: {
+        password: true,
+        username: true,
+        email: true,
+        id: true,
+      },
+      where: {
+        id: user.id,
+      },
+    });
+
+    if (!findUser) {
+      throw HttpException.notFound(Message["invalidPassword"]);
+    }
+    const isCorrectPassword = await BcryptUtils.compare(
+      oldPassword,
+      findUser.password
+    );
+    if (!isCorrectPassword) {
+      throw HttpException.badRequest(Message["invalidRequest"]);
+    }
+    findUser.password = await BcryptUtils.hash(newPassword);
+    await this.userRepository.save(findUser);
+    return findUser;
+  }
+
+  forgetPassword( data: ForgetPasswordDTO){
+    const { email } = data
+    const user = this.userRepository.findOne({
+      where:{
+        email,
+      }
+    })
   }
 }

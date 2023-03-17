@@ -26,12 +26,7 @@ export class ChangePasswordDTO{
 }
 
 export class ForgetPasswordDTO{
-    @IsNotEmpty()
-    @IsNumber()
-    @Min(100000)
-    @Max(999999)
-    code: number
-
+    
     @IsString()
     @IsNotEmpty()
     @IsEmail()

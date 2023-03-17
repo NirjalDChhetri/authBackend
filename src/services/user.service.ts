@@ -1,11 +1,17 @@
 import { AppDataSource } from "../config/database.config";
 import Message from "../customs/messages";
-import { ChangePasswordDTO, ForgetPasswordDTO, LoginDTO } from "../dtos/login.dto";
+import {
+  ChangePasswordDTO,
+  ForgetPasswordDTO,
+  LoginDTO,
+} from "../dtos/login.dto";
 import { SignupDTO } from "../dtos/user.dot";
 import { User } from "../entity/user.entity";
 import BcryptUtils from "../utils/bcrypt.util";
 import { JwtUtil } from "../utils/jwt.util";
 import HttpException from "../utils/HttpException";
+import RandomGenerator from "../utils/random.util";
+import sendMail from "../utils/email.util";
 
 export class UserService {
   constructor(private userRepository = AppDataSource.getRepository(User)) {}
@@ -85,12 +91,36 @@ export class UserService {
     return findUser;
   }
 
-  forgetPassword( data: ForgetPasswordDTO){
-    const { email } = data
-    const user = this.userRepository.findOne({
-      where:{
+  async forgetPassword(data: ForgetPasswordDTO) {
+    const { email } = data;
+    const user = await this.userRepository.findOne({
+      where: {
         email,
-      }
-    })
+      },
+    });
+    if (!user) {
+      throw HttpException.badRequest(Message["invalidEmail"]);
+    }
+    const token = RandomGenerator.generateRandomNumber();
+    const tokenWithExpiration = RandomGenerator.hashWithExpiration(token);
+    try {
+      const fullUrl = `https//www.ninja.com/forget-password?token=${tokenWithExpiration}`;
+      sendMail({
+        to: email,
+        subject: "Reset Password",
+        html: `<h1>Reset Password</h1>,
+        <p>Click on the link below to reset the Password</p>
+        <P>${token}</p>`,
+        from: "Nirjald3@gmail.com",
+        text: " Reset Password",
+      });
+      console.log(fullUrl, token);
+    } catch (error) {
+      throw HttpException.internalServerError("Error Sending mail");
+    }
+    return {
+      hashedToken: tokenWithExpiration,
+      email,
+    };
   }
 }

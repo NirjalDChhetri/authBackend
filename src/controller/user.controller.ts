@@ -56,8 +56,16 @@ class UserController {
     })
   }
 
-  forgetPassword(req: Request, res: Response, next: NextFunction){
+  async forgetPassword(req: Request, res: Response, next: NextFunction){
     const data = req.body as ForgetPasswordDTO
+    const user = await this.userService.forgetPassword(data)
+    res.status(200).json({
+      success: true,
+      where: {
+        user,
+      },
+      message: Message["Password Updated"]
+    })
   }
 }
 

@@ -21,7 +21,7 @@ import { User } from "../entity/user.entity";
     process.env.ACCESS_TOKEN_SECRET as string
   );
   if (!payload) {
-    new Error("You are not authorized");
+    throw HttpException.unauthorized(Message["unAuthorized"]);
   }
   let userRepository = AppDataSource.getRepository(User);
   try {

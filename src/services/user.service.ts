@@ -4,6 +4,7 @@ import {
   ChangePasswordDTO,
   ForgetPasswordDTO,
   LoginDTO,
+  ResetPasswordDTO,
 } from "../dtos/login.dto";
 import { SignupDTO } from "../dtos/user.dot";
 import { User } from "../entity/user.entity";
@@ -122,5 +123,34 @@ export class UserService {
       hashedToken: tokenWithExpiration,
       email,
     };
+  }
+
+  async resetPassword(data: ResetPasswordDTO) {
+    const { password, hashedToken } = data;
+    const tokenWithExpiration = hashedToken.split(".");
+    const tokenHash = tokenWithExpiration[0];
+    const expiration = tokenWithExpiration[1];
+
+    const isTokenExpired = RandomGenerator.isTokenExpires(expiration);
+    if (isTokenExpired) {
+      throw HttpException.badRequest(Message["invalidToken"]);
+    }
+
+    const newToken = RandomGenerator.hash(tokenHash);
+    if (tokenHash !== newToken) {
+      throw HttpException.badRequest(Message["invalidToken"]);
+    }
+
+    const user = await this.userRepository.findOne({
+      where: {
+        email: data.email,
+      },
+    });
+    if (!user) {
+      throw HttpException.notFound(Message["invalidEmail"]);
+    }
+    user.password = await BcryptUtils.hash(password);
+    this.userRepository.save(user);
+    return user;
   }
 }

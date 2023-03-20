@@ -2,22 +2,17 @@ import crypto from "crypto";
 
 class RandomGenerator {
   public static generate(length: number = 20) {
-    crypto.randomBytes(length).toString("hex");
+     return crypto.randomBytes(length).toString("hex");
   }
 
-  public static hashWithExpiration(
-    token: string,
-    expirationMinutes: number = 10
-  ) {
+  public static hashWithExpiration( token: string, expirationMinutes: number = 10) {
     var currentDate = new Date();
     var newDateObj = new Date(currentDate.getTime() + expirationMinutes * 6000);
-    crypto.createHash("sha256").update(token).digest("hex") +
-      "." +
-      newDateObj.getTime();
+    return crypto.createHash("sha256").update(token).digest("hex") + "." + newDateObj.getTime();
   }
 
   public static hash(token: string) {
-    crypto.createHash("sha256").update(token).digest("hex");
+    return crypto.createHash("sha256").update(token).digest("hex");
   }
 
   static generateRandomNumber() {

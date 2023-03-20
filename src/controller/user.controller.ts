@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ChangePasswordDTO, ForgetPasswordDTO } from "../dtos/login.dto";
+import { ChangePasswordDTO, ForgetPasswordDTO, ResetPasswordDTO } from "../dtos/login.dto";
 import { User } from "../entity/user.entity";
 import { UserService } from "../services/user.service";
 import Message from '../customs/messages'
@@ -65,6 +65,18 @@ class UserController {
         user,
       },
       message: Message["Password Updated"]
+    })
+  }
+
+  async resetPassword(req: Request, res: Response, next: NextFunction){
+    const data = req.body as ResetPasswordDTO
+    const user = await this.userService.resetPassword(data)
+    res.status(200).json({
+      success: true,
+      where:{
+        user,
+      },
+      message: Message['updatePassword']
     })
   }
 }

@@ -52,6 +52,9 @@ class UserController {
     await this.userService.changePassword(data, user)
     res.status(200).json({
       success: true,
+      data:{
+          user,
+      },
       message: Message['updatePassword']
     })
   }

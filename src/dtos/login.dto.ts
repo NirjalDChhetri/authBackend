@@ -1,13 +1,5 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  IsNumber,
-  Min,
-  Max,
-  Validate,
-  isString,
-} from "class-validator";
+import { IsEmail, IsNotEmpty, IsString,Validate, } from "class-validator";
+import { IsStrongPassword } from "../customs/passwordStrength";
 
 export class LoginDTO {
   @IsNotEmpty()
@@ -26,6 +18,7 @@ export class ChangePasswordDTO {
 
   @IsString()
   @IsNotEmpty()
+  @Validate(IsStrongPassword)
   newPassword: string;
 
   @IsString()

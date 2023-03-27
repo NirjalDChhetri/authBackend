@@ -1,5 +1,6 @@
-import { IsString, IsNotEmpty, IsEmail, Min, Validate } from "class-validator";
+import { IsString, IsNotEmpty, IsEmail, Validate } from "class-validator";
 import { IsEmailExist } from "../customs/isEmailExist";
+import { IsStrongPassword } from "../customs/passwordStrength";
 
 export class SignupDTO{
     
@@ -13,6 +14,7 @@ export class SignupDTO{
     email: string
   
     @IsNotEmpty()
+    @Validate(IsStrongPassword)
     password: string
 
 }

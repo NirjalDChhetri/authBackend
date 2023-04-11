@@ -5,7 +5,7 @@ import Message from "./messages";
 @ValidatorConstraint({ name: "isStrongPassword", async: true })
 export class IsStrongPassword implements ValidatorConstraintInterface {
   async validate(text: string, arg: ValidationArguments) {
-    return await PASSWORD_REGEX.test(text);
+    return PASSWORD_REGEX.test(text);
   }
   defaultMessage(args: ValidationArguments) {
     return Message.passwordStrength;

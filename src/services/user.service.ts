@@ -105,7 +105,7 @@ export class UserService {
     const token = RandomGenerator.generateRandomNumber();
     const tokenWithExpiration = RandomGenerator.hashWithExpiration(token);
     try {
-      const fullUrl = `https//www.ninja.com/forget-password?token=${tokenWithExpiration}`;
+      const fullUrl = `https//localhost:8000/forget-password?token=${tokenWithExpiration}`;
       sendMail({
         to: email,
         subject: "Reset Password",

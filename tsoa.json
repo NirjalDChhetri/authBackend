@@ -1,0 +1,12 @@
+{
+    "entryFile": "src/index.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "controllerpathGlob" : ["src/services/*service.ts"],
+    "spec": {
+        "outputDirectory": "public/build",
+        "specVersion": 3
+    }, 
+    "routes": {
+        "routesDir": "public/build"
+    }
+}

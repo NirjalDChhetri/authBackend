@@ -7,7 +7,7 @@ const messages = {
     emailAlreadyExists: 'Email Already Exists',
     invalidPassword: 'Invalid Password',
     invalidPhone: 'Invalid Phone Number',
-    welcomeMessage: 'Welcome to the Wada Kanoon API',
+    welcomeMessage: 'Welcome to the Project',
     dataFetched: 'Data Fetched Successfully',
     dataUpdated: 'Data Updated Successfully',
     dataInserted: 'Data Inserted Successfully',

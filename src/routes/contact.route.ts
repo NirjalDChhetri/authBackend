@@ -4,6 +4,16 @@ import { catchAsync } from "../utils/catchAsync";
 import Validator from "../middlewares/validator.middleware";
 import { ContactDTO } from "../dtos/contact.dot";
 
-const router = Router()
+const router = Router();
 
-router.post('/login', Validator.validate(ContactDTO), catchAsync(contactController.createContact.bind(contactController)))
+router.get("/", () => {
+  console.log("i am nirjal");
+});
+
+router.post(
+  "/",
+  Validator.validate(ContactDTO),
+  catchAsync(contactController.createContact.bind(contactController))
+);
+
+export default router;

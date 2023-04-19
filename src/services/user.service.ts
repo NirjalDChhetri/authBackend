@@ -25,7 +25,7 @@ export class UserService {
   async create(data: SignupDTO): Promise<User> {
     try {
       let user = new User();
-      (user.username = data.username),
+      (user.username = data.userName),
         (user.email = data.email),
         (user.password = data.password);
       const userData = await this.userRepository.save(user);

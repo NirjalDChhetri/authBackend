@@ -3,6 +3,7 @@ import { Role, TokenStatus } from "../constants/enum";
 import BcryptUtils from "../utils/bcrypt.util";
 import { CommonField } from "./commonEntity";
 import Token from "./token.entity";
+import { Otp } from "./otp.entity";
 
 @Entity({
   name: "user",
@@ -31,6 +32,9 @@ export class User extends CommonField {
     onDelete: 'CASCADE'
   })
   token: Token[]
+
+  @OneToMany(() => Otp, (otp) => otp.user)
+  otp: Otp[]
 
   @BeforeInsert()
   async hashedPassword(){

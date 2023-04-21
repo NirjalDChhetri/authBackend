@@ -12,3 +12,4 @@ class OtpController {
         await verify.save()
     }
 }
+ export default new OtpController()

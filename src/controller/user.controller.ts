@@ -59,29 +59,29 @@ class UserController {
     })
   }
 
-  async forgetPassword(req: Request, res: Response, next: NextFunction){
-    const data = req.body as ForgetPasswordDTO
-    const user = await this.userService.forgetPassword(data)
-    res.status(200).json({
-      success: true,
-      where: {
-        user,
-      },
-      message: Message["Password Updated"]
-    })
-  }
+  // async forgetPassword(req: Request, res: Response, next: NextFunction){
+  //   const data = req.body as ForgetPasswordDTO
+  //   const user = await this.userService.forgetPassword(data)
+  //   res.status(200).json({
+  //     success: true,
+  //     where: {
+  //       user,
+  //     },
+  //     message: Message["Password Updated"]
+  //   })
+  // }
 
-  async resetPassword(req: Request, res: Response, next: NextFunction){
-    const data = req.body as ResetPasswordDTO
-    const user = await this.userService.resetPassword(data)
-    res.status(200).json({
-      success: true,
-      where:{
-        user,
-      },
-      message: Message['updatePassword']
-    })
-  }
+  // async resetPassword(req: Request, res: Response, next: NextFunction){
+  //   const data = req.body as ResetPasswordDTO
+  //   const user = await this.userService.resetPassword(data)
+  //   res.status(200).json({
+  //     success: true,
+  //     where:{
+  //       user,
+  //     },
+  //     message: Message['updatePassword']
+  //   })
+  // }
 }
 
 export default new UserController();

@@ -16,8 +16,8 @@ router.post('/login', Validator.validate(LoginDTO), catchAsync(UserController.Us
 
 router.post("/change-password", authentication,Validator.validate(ChangePasswordDTO), catchAsync(UserController.changePassword.bind(UserController)))
 
-router.post("/forget-password", Validator.validate(ForgetPasswordDTO), catchAsync(UserController.forgetPassword.bind(UserController)))
+// router.post("/forget-password", Validator.validate(ForgetPasswordDTO), catchAsync(UserController.forgetPassword.bind(UserController)))
 
-router.post("/reset-password", Validator.validate(ResetPasswordDTO), catchAsync(UserController.resetPassword.bind(UserController)))
+// router.post("/reset-password", Validator.validate(ResetPasswordDTO), catchAsync(UserController.resetPassword.bind(UserController)))
 
 export default router;

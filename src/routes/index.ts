@@ -2,6 +2,7 @@ import { Router } from "express";
 import userRoute from "../routes/user.route";
 import contactRoute from "../routes/contact.route";
 import messages from "../customs/messages";
+import mediaRoute from "./media.route";
 
 const router = Router();
 
@@ -19,6 +20,11 @@ const routes: Route[] = [
     path: "/contact",
     route: contactRoute,
   },
+  {
+    path: '/media',
+    route: mediaRoute,
+
+  }
 ];
 
 routes.forEach((route) => {

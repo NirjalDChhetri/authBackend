@@ -9,5 +9,6 @@ export enum TokenStatus {
 }
 
 export enum MediaType {
-    PROFILE_PICTURE = 'PROFILE_PICTURE'
+    PROFILE_PICTURE = 'PROFILE_PICTURE',
+    DOCUMENT = 'DOCUMENT'
 }

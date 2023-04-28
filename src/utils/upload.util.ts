@@ -3,7 +3,6 @@ import path from 'path'
 import fs from 'fs'
 import { MediaType } from '../constants/enum'
 import HttpException from './HttpException'
-import messages from '../customs/messages'
 
 const PUBLIC_FOLDER_PATH = path.join(__dirname, '..', '..', 'public')
 const UPLOADS_FOLDER_PATH = path.join(__dirname, '..', '..', 'public', 'temp')

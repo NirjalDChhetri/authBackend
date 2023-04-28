@@ -13,5 +13,6 @@ class MediaService {
     const newMedia = await this.mediaRepository.save(media);
     return newMedia;
   }
+
 }
 export default new MediaService();

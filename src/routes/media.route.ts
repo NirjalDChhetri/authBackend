@@ -11,4 +11,9 @@ router.post(
   catchAsync(mediaController.uploadSingle)
 );
 
+router.post(
+  "/upload/multiple",
+  upload.multiple("media"),
+  catchAsync(mediaController.uploadMultiple)
+);
 export default router;

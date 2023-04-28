@@ -40,5 +40,39 @@ const upload = {
       }
     };
   },
+
+  multiple: (fieldName: string) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        if (!req.files?.[fieldName]) {
+          throw HttpException.badRequest("No file uploaded");
+        }
+        if (!Array.isArray(req.files?.[fieldName])) {
+          throw HttpException.badRequest("Multiple file is needed");
+        }
+        let files = req.files[fieldName] as UploadedFile[];
+        let fileLists: any[] = [];
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i] as UploadedFile;
+
+          const fileName = `${Date.now()}__${randomBytes(3).toString("hex")}__${
+            file.name
+          }}`;
+
+          await uploadHelper(fileName, file, req.body.type);
+
+          req.file = {
+            name: fileName,
+            mimetype: file.mimetype,
+            type: req.body.type,
+          };
+        }
+        req.file = fileLists;
+        next();
+      } catch (error) {
+        next(error);
+      }
+    };
+  },
 };
 export default upload;

@@ -10,17 +10,17 @@ let mediaTypes = Object.values(MediaType);
 const upload = {
   single: (fieldName: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
-      if (!req.files) {
-        throw HttpException.badRequest("No file uploaded");
-      }
-      //Make sure that only one file is uploaded
-      if (Object.keys(req.files).length !== 1) {
-        throw HttpException.badRequest("Only one file is uploaded");
-      }
-      if (!mediaTypes.includes(req.body.type)) {
-        throw HttpException.badRequest("Invalid media type");
-      }
       try {
+        if (!req.files) {
+          throw HttpException.badRequest("No file uploaded");
+        }
+        //Make sure that only one file is uploaded
+        if (Object.keys(req.files).length !== 1) {
+          throw HttpException.badRequest("Only one file is uploaded");
+        }
+        if (!mediaTypes.includes(req.body.type)) {
+          throw HttpException.badRequest("Invalid media type");
+        }
         const file = req.files[fieldName] as UploadedFile;
 
         const fileName = `${Date.now()}_${randomBytes(3).toString("hex")}_${

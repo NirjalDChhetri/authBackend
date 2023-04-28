@@ -12,7 +12,7 @@ class ContactController {
       data: {
         contact,
       },
-      message: "User successfully created",
+      message: "Contact successfully created",
     });
     return userContact;
   }

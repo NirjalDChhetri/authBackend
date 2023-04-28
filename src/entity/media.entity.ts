@@ -27,8 +27,7 @@ export class Media extends CommonField {
 
 
 
-
-    private path: string
+    path: string
     @AfterLoad()
     async loadImagePath() {
       this.path = `/${this.type}/${this.name}`

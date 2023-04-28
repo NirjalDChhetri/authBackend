@@ -1,17 +1,18 @@
 import express from "express";
-import routes from './routes/index'
+import routes from "./routes/index";
 import { AppDataSource } from "./config/database.config";
-import cors from 'cors';
+import cors from "cors";
+import fileUpload from "express-fileupload";
 
 const app = express();
 
 app.use(cors());
 
-app.use("/", routes)
-
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload());
 
+app.use("/", routes);
 
 app.listen(8000, () => {
   console.log("Server has started");

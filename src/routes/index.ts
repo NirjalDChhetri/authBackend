@@ -3,6 +3,7 @@ import userRoute from "../routes/user.route";
 import contactRoute from "../routes/contact.route";
 import messages from "../customs/messages";
 import mediaRoute from "./media.route";
+import categoryRoute from "./category.route";
 
 const router = Router();
 
@@ -24,6 +25,10 @@ const routes: Route[] = [
     path: '/media',
     route: mediaRoute,
 
+  },
+  {
+    path: '/category',
+    route: categoryRoute,
   }
 ];
 

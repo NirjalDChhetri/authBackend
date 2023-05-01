@@ -8,3 +8,5 @@ router.post(
   "/create",
   catchAsync(categoryController.createcategory.bind(categoryController))
 );
+
+export default router;

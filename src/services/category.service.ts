@@ -1,12 +1,12 @@
 import { AppDataSource } from "../config/database.config";
 import messages from "../customs/messages";
-import { CreateCategoryDTO } from "../dtos/category.dto";
-import { BlogCategory } from "../entity/category.blog";
+import { CreateCategoryDTO } from "../dtos/bookCategory.dto";
+import { BookCategory } from "../entity/bookCategory.entity";
 import HttpException from "../utils/HttpException";
 
 class CategoryService {
   constructor(
-    private categoryRepository = AppDataSource.getRepository(BlogCategory)
+    private categoryRepository = AppDataSource.getRepository(BookCategory)
   ) {}
 
   async create(data: CreateCategoryDTO) {
@@ -14,10 +14,10 @@ class CategoryService {
     if (!title) {
       throw HttpException.badRequest(messages["dataNotFound"]);
     }
-    const category = await this.categoryRepository.create({
+    const category = this.categoryRepository.create({
       title: title.toLowerCase(),
     });
-    return this.categoryRepository.save(category);
+    return await this.categoryRepository.save(category);
   }
 }
 

@@ -3,10 +3,10 @@ import { CommonField } from './commonEntity';
 
 
 @Entity({
-    name: 'category'
+    name: 'bookcategory'
 })
 
-export class BlogCategory extends CommonField {
+export class BookCategory extends CommonField {
     @Column({
         name: 'title',
         unique: true

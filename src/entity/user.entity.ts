@@ -27,6 +27,14 @@ export class User extends CommonField {
     })
   password: string;
 
+  //To verify user gmail
+  @Column({
+    default: false,
+    name: 'is_verified',
+    nullable: true
+  })
+  isVerified: Boolean
+
   @OneToMany(() => Token, (token) => token.user, {
     nullable: true,
     onDelete: 'CASCADE'

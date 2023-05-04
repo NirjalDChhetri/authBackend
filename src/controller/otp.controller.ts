@@ -1,15 +1,17 @@
 import { Request, Response, NextFunction } from 'express'
-import { OtpService } from '../services/otp.service';
+import OTPService  from '../services/otp.service';
 
 class OtpController {
-    constructor(private otpService = new OtpService()){}
-
     async verifyOtp ( req: Request, res: Response, next: NextFunction){
-        const verify = await this.otpService.find(req.body)
+        const verify = await OTPService.find(req.body)
         verify.user.isVerified = true
         verify.status = false
-        await verify.user.save()
+        //await verify.user.save()
         await verify.save()
+        res.status(200).json({
+            success: true,
+            message: " User Verified"
+        })
     }
 }
  export default new OtpController()

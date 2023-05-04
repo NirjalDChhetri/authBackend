@@ -3,6 +3,8 @@ import { ChangePasswordDTO, ForgetPasswordDTO, ResetPasswordDTO } from "../dtos/
 import { User } from "../entity/user.entity";
 import { UserService } from "../services/user.service";
 import Message from '../customs/messages'
+import otpService from "../services/otp.service";
+import emailUtil from "../utils/email.util";
 
 class UserController {
   constructor(private userService = new UserService()) {}
@@ -21,6 +23,8 @@ class UserController {
     const data = req.body;
     try {
       const user = await this.userService.create(data);
+      let otp = await otpService.create(user)
+      emailUtil.sendOtp(otp.code, user.email, user.id, otp.expiresIn, true)
       res.status(200).json({
         status: "success",
         data: {

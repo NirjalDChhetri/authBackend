@@ -4,6 +4,7 @@ import contactRoute from "../routes/contact.route";
 import messages from "../customs/messages";
 import mediaRoute from "./media.route";
 import categoryRoute from "./category.route";
+import otpRoute from "./otp.route"
 
 const router = Router();
 
@@ -16,6 +17,10 @@ const routes: Route[] = [
   {
     path: "/user",
     route: userRoute,
+  },
+  {
+    path: '/otp',
+    route: otpRoute,
   },
   {
     path: "/contact",

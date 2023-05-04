@@ -38,7 +38,6 @@ export class Otp extends BaseEntity {
     updatedAt: Date
 
     @ManyToOne(() => User, (user) => user.otp, {
-
     })
     user: User
 

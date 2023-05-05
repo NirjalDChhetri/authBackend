@@ -92,65 +92,7 @@ export class UserService {
     return findUser;
   }
 
-  // async forgetPassword(data: ForgetPasswordDTO) {
-  //   const { email } = data;
-  //   const user = await this.userRepository.findOne({
-  //     where: {
-  //       email,
-  //     },
-  //   });
-  //   if (!user) {
-  //     throw HttpException.badRequest(Message["invalidEmail"]);
-  //   }
-  //   const token = RandomGenerator.generateRandomNumber();
-  //   const tokenWithExpiration = RandomGenerator.hashWithExpiration(token);
-  //   try {
-  //     const fullUrl = `https//localhost:8000/forget-password?token=${tokenWithExpiration}`;
-  //     sendMail({
-  //       to: email,
-  //       subject: "Reset Password",
-  //       html: `<h1>Reset Password</h1>,
-  //       <p>Click on the link below to reset the Password</p>
-  //       <P>${token}</p>`,
-  //       from: "Nirjald3@gmail.com",
-  //       text: " Reset Password",
-  //     });
-  //     console.log(fullUrl, token);
-  //   } catch (error) {
-  //     throw HttpException.internalServerError("Error Sending mail");
-  //   }
-  //   return {
-  //     hashedToken: tokenWithExpiration,
-  //     email,
-  //   };
-  // }
-
-  // async resetPassword(data: ResetPasswordDTO) {
-  //   const { password, hashedToken } = data;
-  //   const tokenWithExpiration = hashedToken.split(".");
-  //   const tokenHash = tokenWithExpiration[0];
-  //   const expiration = tokenWithExpiration[1];
-
-  //   const isTokenExpired = RandomGenerator.isTokenExpires(expiration);
-  //   if (isTokenExpired) {
-  //     throw HttpException.badRequest(Message["invalidToken"]);
-  //   }
-
-  //   const newToken = RandomGenerator.hash(tokenHash);
-  //   if (tokenHash !== newToken) {
-  //     throw HttpException.badRequest(Message["invalidToken"]);
-  //   }
-
-  //   const user = await this.userRepository.findOne({
-  //     where: {
-  //       email: data.email,
-  //     },
-  //   });
-  //   if (!user) {
-  //     throw HttpException.notFound(Message["invalidEmail"]);
-  //   }
-  //   user.password = await BcryptUtils.hash(password);
-  //   this.userRepository.save(user);
-  //   return user;
-  // }
+  async forgetPassword() {
+    
+  }
 }

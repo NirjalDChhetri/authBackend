@@ -8,7 +8,7 @@ import messages from "../customs/messages";
 
 class OTPService {
   constructor(private otpRepository = AppDataSource.getRepository(Otp)) {}
-  async create(user: User) {
+  async create(user?: User) {
     const newOtp = new Otp();
     newOtp.code = this.generateCode();
     newOtp.expiresIn = new Date(Date.now() + 1000 * 60 * 20);
@@ -38,4 +38,4 @@ class OTPService {
   }
 }
 
-export default new OTPService();
+export default OTPService;

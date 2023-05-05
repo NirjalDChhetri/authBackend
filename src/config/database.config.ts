@@ -18,5 +18,5 @@ export const AppDataSource = new DataSource({
     entities: [User, Token, Contact, Otp, Media, BookCategory],
     synchronize: true,
     logging: false,
-   // dropSchema: true,
+   //dropSchema: true,
 })

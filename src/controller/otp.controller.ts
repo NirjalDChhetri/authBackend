@@ -1,17 +1,25 @@
-import { Request, Response, NextFunction } from 'express'
-import OTPService  from '../services/otp.service';
+import { Request, Response, NextFunction } from "express";
+import OTPService from "../services/otp.service";
+import { AppDataSource } from "../config/database.config";
+import { User } from "../entity/user.entity";
 
 class OtpController {
-    async verifyOtp ( req: Request, res: Response, next: NextFunction){
-        const verify = await OTPService.find(req.body)
-        verify.user.isVerified = true
-        verify.status = false
-        //await verify.user.save()
-        await verify.save()
-        res.status(200).json({
-            success: true,
-            message: " User Verified"
-        })
-    }
+  constructor(
+    private OtpService = new OTPService(),
+    private userRepository = AppDataSource.getRepository(User)
+  ) {}
+
+  async verifyOtp(req: Request, res: Response) {
+    const number = req.body;
+    const verify = await this.OtpService.find(number);
+    verify.user.isVerified = true;
+    verify.status = false;
+    await this.userRepository.save(verify.user);
+    await verify.save();
+    res.status(200).json({
+      success: true,
+      message: " User Verified",
+    });
+  }
 }
- export default new OtpController()
+export default new OtpController();

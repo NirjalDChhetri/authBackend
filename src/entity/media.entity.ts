@@ -1,6 +1,7 @@
-import { AfterLoad, Column, Entity } from "typeorm";
+import { AfterLoad, Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { CommonField } from "./commonEntity";
 import { MediaType } from "../constants/enum";
+import { UserDetails } from "./user.detail.entity";
 
 
 @Entity({
@@ -24,6 +25,11 @@ export class Media extends CommonField {
         enum: MediaType
     })
     type: MediaType
+
+    @OneToOne(()=> UserDetails, (userDetails) => userDetails.profilePicture)
+    @JoinColumn({name:'user_detail_id'})
+    userDetails: UserDetails
+    
 
 
 

@@ -62,8 +62,7 @@ export const otpHtml = (otp:string) => {
         <h2>OTP Verification</h2>
         <h4>Hello,</h4>
         <h4>
-          Please use the verification code below on the wada kanoon
-          Delivery App
+          Please use the verification code below
         </h4>
         <!-- replace OPT  -->
         <h1>${otp}</h1>

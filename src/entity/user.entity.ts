@@ -1,9 +1,10 @@
-import { Entity, Column, BeforeInsert, OneToMany } from "typeorm";
+import { Entity, Column, BeforeInsert, OneToMany, OneToOne } from "typeorm";
 import { Role, TokenStatus } from "../constants/enum";
 import BcryptUtils from "../utils/bcrypt.util";
 import { CommonField } from "./commonEntity";
 import Token from "./token.entity";
 import { Otp } from "./otp.entity";
+import { UserDetails } from "./user.detail.entity";
 
 @Entity({
   name: "user",
@@ -40,6 +41,9 @@ export class User extends CommonField {
     onDelete: 'CASCADE'
   })
   token: Token[]
+
+  @OneToOne(()=>UserDetails, (userdetails)=> userdetails.user)
+  userdetails: UserDetails
 
   @OneToMany(() => Otp, (otp) => otp.user)
   otp: Otp[]

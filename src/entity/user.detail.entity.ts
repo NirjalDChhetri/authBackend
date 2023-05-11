@@ -39,6 +39,7 @@ export class UserDetails extends CommonField {
   phoneNumber: string;
 
   @Column({
+    type: 'enum',
     name: "gender",
     enum: Gender,
   })

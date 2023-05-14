@@ -22,7 +22,7 @@ export class UserService {
     return user;
   }
 
-  async create(data: SignupDTO): Promise<User> {
+  async signup(data: SignupDTO): Promise<User> {
     try {
       let user = new User();
       (user.username = data.userName),
@@ -35,6 +35,8 @@ export class UserService {
       console.log(error);
     }
   }
+
+  
 
   async login(data: LoginDTO) {
     const { email, password } = data;
@@ -92,7 +94,5 @@ export class UserService {
     return findUser;
   }
 
-  async forgetPassword() {
-    
-  }
+  async forgetPassword() {}
 }

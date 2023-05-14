@@ -5,6 +5,7 @@ import { UserService } from "../services/user.service";
 import Message from '../customs/messages'
 import emailUtil from "../utils/email.util";
 import OTPService from "../services/otp.service";
+import { CreateUserDetailsDTO } from "../dtos/user.dot";
 
 class UserController {
   constructor(private userService = new UserService(),
@@ -24,7 +25,7 @@ class UserController {
   async signup(req: Request, res: Response, next: NextFunction) {
     const data = req.body;
     try {
-      const user = await this.userService.create(data);
+      const user = await this.userService.signup(data);
       let otp = await this.otpService.create(user)
       emailUtil.sendOtp(otp.code, user.email, user.id, otp.expiresIn, true)
       res.status(200).json({
@@ -37,6 +38,11 @@ class UserController {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async completeProfile ( req: Request, res: Response) {
+    const data = req.body as CreateUserDetailsDTO
+    const user = await UserService.
   }
 
   async Userlogin(req: Request, res: Response, next: NextFunction) {

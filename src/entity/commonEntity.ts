@@ -1,6 +1,6 @@
-import {  PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {  PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity } from 'typeorm'
 
-export class CommonField {
+export class CommonField extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 

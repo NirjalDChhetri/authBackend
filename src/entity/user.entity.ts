@@ -36,12 +36,20 @@ export class User extends CommonField {
   })
   isVerified: Boolean
 
+  //To verify userDetails
+  @Column({
+    default: false,
+    name: 'is_completed'
+  })
+  isCompleted: Boolean
+
   @OneToMany(() => Token, (token) => token.user, {
     nullable: true,
     onDelete: 'CASCADE'
   })
   token: Token[]
 
+  //User and UserDetails Relations
   @OneToOne(()=>UserDetails, (userdetails)=> userdetails.user)
   userdetails: UserDetails
 

@@ -36,8 +36,6 @@ export class UserService {
     }
   }
 
-  
-
   async login(data: LoginDTO) {
     const { email, password } = data;
     let user = await this.userRepository.findOne({

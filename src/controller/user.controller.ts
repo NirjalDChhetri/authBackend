@@ -1,15 +1,16 @@
 import { Request, Response, NextFunction } from "express";
-import { ChangePasswordDTO, ForgetPasswordDTO, ResetPasswordDTO } from "../dtos/login.dto";
+import { ChangePasswordDTO } from "../dtos/login.dto";
 import { User } from "../entity/user.entity";
 import { UserService } from "../services/user.service";
-import Message from '../customs/messages'
+import Message from "../customs/messages";
 import emailUtil from "../utils/email.util";
 import OTPService from "../services/otp.service";
 import { CreateUserDetailsDTO } from "../dtos/user.dot";
 
 class UserController {
-  constructor(private userService = new UserService(),
-  private otpService = new OTPService()
+  constructor(
+    private userService = new UserService(),
+    private otpService = new OTPService()
   ) {}
 
   async getAll(req: Request, res: Response, next: NextFunction) {
@@ -26,8 +27,8 @@ class UserController {
     const data = req.body;
     try {
       const user = await this.userService.signup(data);
-      let otp = await this.otpService.create(user)
-      emailUtil.sendOtp(otp.code, user.email, user.id, otp.expiresIn, true)
+      let otp = await this.otpService.create(user);
+      emailUtil.sendOtp(otp.code, user.email, user.id, otp.expiresIn, true);
       res.status(200).json({
         status: "success",
         data: {
@@ -40,11 +41,6 @@ class UserController {
     }
   }
 
-  async completeProfile ( req: Request, res: Response) {
-    const data = req.body as CreateUserDetailsDTO
-    const user = await UserService.
-  }
-
   async Userlogin(req: Request, res: Response, next: NextFunction) {
     const data = req.body;
     const user = await this.userService.login(data);
@@ -55,22 +51,21 @@ class UserController {
       },
       message: "Login successfully",
     });
-    return user
+    return user;
   }
 
-  async changePassword(req: Request, res: Response, next:NextFunction){
-    const data = req.body as ChangePasswordDTO
-    const user = req.user as User
-    await this.userService.changePassword(data, user)
+  async changePassword(req: Request, res: Response, next: NextFunction) {
+    const data = req.body as ChangePasswordDTO;
+    const user = req.user as User;
+    await this.userService.changePassword(data, user);
     res.status(200).json({
       success: true,
-      data:{
-          user,
+      data: {
+        user,
       },
-      message: Message['updatePassword']
-    })
+      message: Message["updatePassword"],
+    });
   }
-
 }
 
 export default new UserController();

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import messages from "../customs/messages";
+import mediaService from "../services/media.service";
 
 class MediaController {
   constructor() {}
@@ -18,6 +19,11 @@ class MediaController {
       data: req.file,
       message: messages["mediaUploaded"],
     });
+  }
+
+  async getMedia( req: Request, res: Response) {
+    let stream = await mediaService.getMedia(req.params.email, `${req.params.type}/${req.params.name}`)
+    stream.pipe(res)
   }
 }
 

@@ -13,12 +13,23 @@ import { JwtUtil } from "../utils/jwt.util";
 import HttpException from "../utils/HttpException";
 import RandomGenerator from "../utils/random.util";
 import sendMail from "../utils/email.util";
+import messages from "../customs/messages";
 
 export class UserService {
   constructor(private userRepository = AppDataSource.getRepository(User)) {}
 
   async getAll() {
     const user = await this.userRepository.find();
+    return user;
+  }
+
+  async getUser(id: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: id },
+    });
+    if (!user) {
+      throw HttpException.notFound(messages["dataNotFound"]);
+    }
     return user;
   }
 

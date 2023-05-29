@@ -1,6 +1,5 @@
 import { Router } from "express";
 import userRoute from "../routes/user.route";
-import contactRoute from "../routes/contact.route";
 import messages from "../customs/messages";
 import mediaRoute from "./media.route";
 import categoryRoute from "./category.route";
@@ -21,10 +20,6 @@ const routes: Route[] = [
   {
     path: '/otp',
     route: otpRoute,
-  },
-  {
-    path: "/contact",
-    route: contactRoute,
   },
   {
     path: '/media',

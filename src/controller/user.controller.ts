@@ -43,15 +43,15 @@ class UserController {
 
   async Userlogin(req: Request, res: Response, next: NextFunction) {
     const data = req.body;
-    const user = await this.userService.login(data);
+    const usertoken = await this.userService.login(data);
     res.status(200).json({
       status: true,
       data: {
-        user,
+        usertoken,
       },
       message: "Login successfully",
     });
-    return user;
+    return usertoken;
   }
 
   async changePassword(req: Request, res: Response, next: NextFunction) {

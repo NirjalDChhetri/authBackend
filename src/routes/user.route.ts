@@ -39,7 +39,7 @@ router.post(
 
 // router.post("/reset-password", Validator.validate(ResetPasswordDTO), catchAsync(UserController.resetPassword.bind(UserController)))
 
-router.patch(
+router.post(
   "/userdetails",
   authentication,
   catchAsync(

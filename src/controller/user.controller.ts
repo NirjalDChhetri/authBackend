@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ChangePasswordDTO } from "../dtos/login.dto";
+import { ChangePasswordDTO, ForgetPasswordDTO } from "../dtos/login.dto";
 import { User } from "../entity/user.entity";
 import { UserService } from "../services/user.service";
 import Message from "../customs/messages";
@@ -65,6 +65,11 @@ class UserController {
       },
       message: Message["updatePassword"],
     });
+  }
+
+  async forgetPassword( req: Request, res: Response ) {
+    const data = req.body as ForgetPasswordDTO
+    await this.userService.forgetPassword(data)
   }
 }
 

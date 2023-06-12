@@ -14,6 +14,7 @@ import HttpException from "../utils/HttpException";
 import RandomGenerator from "../utils/random.util";
 import sendMail from "../utils/email.util";
 import messages from "../customs/messages";
+import { randomBytes } from "crypto";
 
 export class UserService {
   constructor(private userRepository = AppDataSource.getRepository(User)) {}
@@ -103,5 +104,16 @@ export class UserService {
     return findUser;
   }
 
-  async forgetPassword() {}
+  async forgetPassword( data: ForgetPasswordDTO ) {
+    let user= await this.userRepository.findOne({
+      where: {
+        email: data.email
+      }
+    })
+    if(!user) {
+      throw HttpException.badRequest("Sorry Email doesn't exist")
+    }
+    let code = randomBytes(6).toString('hex')
+    let resetToken = new ResetPasswordDTO()
+  }
 }

@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, ManyToMany } from 'typeorm'
 import { CommonField } from './commonEntity';
+import { Book } from './book.entity';
 
 
 @Entity({
@@ -12,4 +13,7 @@ export class BookCategory extends CommonField {
         unique: true
     })
     title: string
+
+    @ManyToMany(() => Book, (book) => book.categories)
+    books: Book[]
 }

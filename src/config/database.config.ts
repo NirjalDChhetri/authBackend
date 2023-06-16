@@ -7,6 +7,7 @@ import { Otp } from "../entity/otp.entity";
 import { Media } from "../entity/media.entity";
 import { BookCategory } from "../entity/bookCategory.entity";
 import { UserDetails } from "../entity/user.detail.entity";
+import { Book } from "../entity/book.entity";
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -15,7 +16,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [User, Token, Otp, Media, BookCategory, UserDetails],
+  entities: [User, Token, Otp, Media, BookCategory, UserDetails, Book],
   synchronize: true,
   logging: false,
   //dropSchema: true,

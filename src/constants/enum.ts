@@ -11,6 +11,7 @@ export enum TokenStatus {
 export enum MediaType {
   PROFILE_PICTURE = "PROFILE_PICTURE",
   DOCUMENT = "DOCUMENT",
+  BOOK_IMAGE = "BOOK_IMAGE",
 }
 
 export enum Gender {

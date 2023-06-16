@@ -4,6 +4,7 @@ import messages from "../customs/messages";
 import mediaRoute from "./media.route";
 import categoryRoute from "./category.route";
 import otpRoute from "./otp.route"
+import bookRoute from "./book.route";
 
 const router = Router();
 
@@ -29,6 +30,10 @@ const routes: Route[] = [
   {
     path: '/category',
     route: categoryRoute,
+  }, 
+  {
+    path:'/book',
+    route: bookRoute,
   }
 ];
 

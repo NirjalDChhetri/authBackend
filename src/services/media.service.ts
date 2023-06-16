@@ -20,7 +20,7 @@ class MediaService {
     return newMedia;
   }
 
-  async uploadMultipleFile(data: MediaDTO[], email: string) {
+  async uploadMultipleFile(data: MediaDTO[]) {
     let mediaList: Media[] = []
     for (let i=0; i<data.length; i++) {
       if(!existsSync(path.join(TEMP_FOLDER_PATH, data[i].type, data[i].name))) {
